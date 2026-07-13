@@ -14,5 +14,5 @@ jobs:
       - name: build step
         run: |
           echo "A demo build step for event based trigger"
-          echo "github variable ${{ MY_NAME }}"
-          echo "github secrets ${{ DOCKER_PASSWORD }}
+          echo "github variable ${{ vars.MY_NAME }}"
+          echo "github secrets ${{ secrets.DOCKER_PASSWORD }}

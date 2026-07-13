@@ -1,0 +1,28 @@
+name: "input demo workflow"
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Choose the environment to deploy"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - test
+          - prod
+
+      artifact_tag:
+        description: "Tag to deploy"
+        required: true
+        type: string
+
+jobs:
+  input-demo:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Input demo step
+        run: |
+          echo "Deploying tag ${{ inputs.artifact_tag }} to ${{ inputs.environment }} environment"

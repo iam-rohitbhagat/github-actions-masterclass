@@ -1,0 +1,10 @@
+name: Github actions demo
+on: push
+jobs:
+  actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v4
+      - name: show index.html data
+        run: cat index.html

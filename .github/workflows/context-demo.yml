@@ -6,4 +6,6 @@ jobs:
     steps:
       - name: "github actor and repository name is printing"
         run: echo "${{ github.actor }} and repo name is ${{ github.repository }}"
-        
+
+      - name: "printing all github variables"
+        run: echo "${{ toJason(github) }}"

@@ -1,0 +1,9 @@
+name: "context demo workflow"
+on: push
+jobs:
+  context-github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "github actor and repository name is printing"
+        run: echo "${{ github.actor }} and repo name is ${{ github.repository }}"
+        

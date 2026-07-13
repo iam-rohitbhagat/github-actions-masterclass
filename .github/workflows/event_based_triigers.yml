@@ -1,0 +1,15 @@
+name: event based trigger demo
+on:
+  push:
+   branches:
+     - main
+     - develop
+  pull_request:
+     branches:
+       - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build step
+        run: echo "A demo build step for event based trigger"

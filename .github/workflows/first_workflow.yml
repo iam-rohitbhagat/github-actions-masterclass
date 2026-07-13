@@ -1,0 +1,20 @@
+name: hello world
+on: workflow_dispatch #need manual triiger
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build step
+        run: echo "A demo build"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: test step
+        run: echo "A demo test"
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy step
+        run: echo "A deploy step"

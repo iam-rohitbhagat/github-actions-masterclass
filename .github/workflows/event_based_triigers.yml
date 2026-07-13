@@ -12,4 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: build step
-        run: echo "A demo build step for event based trigger"
+        run: |
+          echo "A demo build step for event based trigger"
+          echo "github variable ${{ MY_NAME }}"
+          echo "github secrets ${{ DOCKER_PASSWORD }}

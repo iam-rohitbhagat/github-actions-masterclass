@@ -18,5 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: deploy step
-        run: echo "A deploy step"
+      - name: Deploy step
+        run: |
+          echo " A dempo Deploy on prod1"
+          echo " A demo deploy on prod2"

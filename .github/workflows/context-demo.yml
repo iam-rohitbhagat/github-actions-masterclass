@@ -8,4 +8,4 @@ jobs:
         run: echo "${{ github.actor }} and repo name is ${{ github.repository }}"
 
       - name: "printing all github variables"
-        run: echo "${{ toJason(github) }}"
+        run: echo "${{ toJson(github) }}"

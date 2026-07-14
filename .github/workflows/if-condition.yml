@@ -1,13 +1,13 @@
 name: if-condition demo
 on:
   push:
-    branches;
+    branches:
       - develop
       - main
       - feature/**
 jobs:
   static_analysis:
-    if: startWith(github.ref_name,'feature') && github.event_name == 'main'
+    if: startsWith(github.ref_name,'feature') && github.event_name == 'main'
     runs-on: ubuntu-latest
     steps:
       - name: static code static_analysis

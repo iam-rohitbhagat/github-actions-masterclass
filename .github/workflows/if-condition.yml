@@ -7,7 +7,7 @@ on:
       - feature/**
 jobs:
   static_analysis:
-    if: startsWith(github.ref_name,'feature') && github.event_name == 'main'
+    if: startsWith(github.ref_name,'feature') && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
       - name: static code static_analysis

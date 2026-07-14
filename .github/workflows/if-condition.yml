@@ -1,0 +1,42 @@
+name: if-condition demo
+on:
+  push:
+    branches;
+      - develop
+      - main
+      - feature/**
+jobs:
+  static_analysis:
+    if: startWith(github.ref_name,'feature') && github.event_name == 'main'
+    runs-on: ubuntu-latest
+    steps:
+      - name: static code static_analysis
+        run: echo "static code analysis is done!"
+
+  dev_code:
+    if: github.ref_name == 'develop' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: dev deploy
+        run:  echo "deploying code to develop environment"
+  prod_code:
+    if: github.ref_name == 'main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name: prod deploy
+        run: echo "deploying code to production environment"
+
+  success_notify:
+    needs: ['static_analysis','dev_code','prod_code']
+    if: always() && !failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: success_notify
+        run: echo "success notification sent to the team"
+
+  failure_notify:
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: failure_notify
+        run: echo "failure notification sent to the team"

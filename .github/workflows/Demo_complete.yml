@@ -1,0 +1,36 @@
+name: workflow to copy output from job_1 to job_2
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: env to deploy your code
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - QA
+          - prod
+      artifact_tag:
+        description: tag to deploy
+        required: true
+        type: string
+
+jobs:
+  build:
+    outputs:
+      version: ${{ steps.step1.outputs.version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: build step
+        id: step1
+        run: echo "version=0.0.1" >> $GITHUB_OUTPUT
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: test step
+        run: echo "testing build code with version ${{ needs.build.outputs.version}}"
+      
+      

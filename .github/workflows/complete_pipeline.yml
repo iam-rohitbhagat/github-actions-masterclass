@@ -1,4 +1,5 @@
 name: CI-CD pipeline
+
 on:
   workflow_dispatch:
     inputs:
@@ -11,6 +12,7 @@ on:
           - dev
           - QA
           - prod
+
       artifact_tag:
         description: "tag to deploy"
         required: true
@@ -18,24 +20,32 @@ on:
 
 jobs:
   build:
+    runs-on: ubuntu-latest
+
     outputs:
       version: ${{ steps.build_01.outputs.version }}
-      runs-on: ubuntu-latest
-      steps:
-        - name: "build step"
-          id: build_01
-          run: echo "version=0.0.1" >> $GITHUB_OUTPUT
-    
+
+    steps:
+      - name: Build step
+        id: build_01
+        run: echo "version=0.0.1" >> $GITHUB_OUTPUT
+
   test:
     needs: build
     runs-on: ubuntu-latest
+
     steps:
-      - name: "test step"
-        run: echo "testing the buils ${{ needs.build.outputs.version }}"
+      - name: Test step
+        run: echo "testing the build ${{ needs.build.outputs.version }}"
 
   deploy:
-    needs: test
+    needs: [build,test]
     runs-on: ubuntu-latest
+
     steps:
-      - name: "deploying the code"
-        run: echo "deploying..............!!!!"
+      - name: Deploying the code
+        run: |
+          echo "Deploying version ${{ needs.build.outputs.version }}"
+          echo "Environment: ${{ inputs.environment }}"
+          echo "Artifact Tag: ${{ inputs.artifact_tag }}"
+          echo "deploying..............!!!!"

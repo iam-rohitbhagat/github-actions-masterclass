@@ -1,0 +1,41 @@
+name: CI-CD pipeline
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "options to deploy in env"
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - QA
+          - prod
+      artifact_tag:
+        description: "tag to deploy"
+        required: true
+        type: string
+
+jobs:
+  build:
+    outputs:
+      version: ${{ steps.build_01.outputs.version }}
+      runs-on: ubuntu-latest
+      steps:
+        - name: "build step"
+          id: build_01
+          run: echo "version=0.0.1" >> $GITHUB_OUTPUT
+    
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: "test step"
+        run: echo "testing the buils ${{ needs.build.outputs.version }}"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: "deploying the code"
+        run: echo "deploying..............!!!!"
